@@ -1,33 +1,23 @@
-import { Routes, Route, NavLink } from "react-router";
+import { Routes, Route, Navigate } from "react-router-dom";
+import Connexion from "./pages/Connexion";
+import Dashboard from "./pages/Dashboard";
 import HomePage from "./pages/HomePage";
-import LoginPage from "./pages/Connexion";
-import DashboardPage from "./pages/Dashboard";
-import ProjectsPage from "./pages/Projects";
-import ProjectDetailsPage from "./pages/ProjectsDetail";
-import NotFoundPage from "./pages/NotFound";
+import Projects from "./pages/Projects";
+import ProjectsDetail from "./pages/ProjectsDetail";
+import NotFound from "./pages/NotFound";
 
-export default function App() {
+function App() {
   return (
-    <div>
-      <header style={{ padding: "1rem", borderBottom: "1px solid #ddd" }}>
-        <nav style={{ display: "flex", gap: "1rem" }}>
-          <NavLink to="/">Home</NavLink>
-          <NavLink to="/login">Login</NavLink>
-          <NavLink to="/dashboard">Dashboard</NavLink>
-          <NavLink to="/projects">Projects</NavLink>
-        </nav>
-      </header>
-
-      <main style={{ padding: "1rem" }}>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/dashboard" element={<DashboardPage />} />
-          <Route path="/projects" element={<ProjectsPage />} />
-          <Route path="/projects/:id" element={<ProjectDetailsPage />} />
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
-      </main>
-    </div>
+    <Routes>
+      <Route path="/" element={<Navigate to="/Connexion" replace />} />
+      <Route path="/Connexion" element={<Connexion />} />
+      <Route path="/Dashboard" element={<Dashboard />} />
+      <Route path="/HomePage" element={<HomePage />} />
+      <Route path="/Projects" element={<Projects />} />
+      <Route path="/Projects/:id" element={<ProjectsDetail />} />
+      <Route path="*" element={<NotFound />} />
+    </Routes>
   );
 }
+
+export default App;

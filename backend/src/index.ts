@@ -36,10 +36,11 @@ app.use(helmet());
 // Middleware CORS
 app.use(
   cors({
-    origin:
-      process.env.NODE_ENV === "production"
-        ? ["https://votre-domaine.com"]
-        : ["http://localhost:8000", "http://localhost:8001"],
+    origin: [
+      "http://localhost:8000",
+      "http://localhost:8001",
+      "http://localhost:3000",
+    ],
     credentials: true,
   })
 );

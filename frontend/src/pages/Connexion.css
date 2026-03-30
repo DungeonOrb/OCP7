@@ -1,0 +1,149 @@
+.connexion-page {
+  display: flex;
+  min-height: 100vh;
+  background: #f3f3f3;
+}
+
+.connexion-left {
+  width: 38%;
+  min-width: 320px;
+  background: #f3f3f3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 24px;
+}
+
+.connexion-content {
+  width: 100%;
+  max-width: 290px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100%;
+}
+
+.connexion-logo {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #d95f02;
+  letter-spacing: 1px;
+  margin-bottom: 110px;
+  text-align: left;
+}
+
+.connexion-content h1 {
+  color: #d95f02;
+  font-size: 2.2rem;
+  margin-bottom: 24px;
+  font-weight: 600;
+}
+
+.connexion-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  font-size: 0.8rem;
+  color: #333;
+}
+
+.form-group input {
+  height: 32px;
+  border: 1px solid #ddd;
+  background: white;
+  padding: 0 10px;
+  border-radius: 2px;
+  font-size: 0.95rem;
+}
+
+.login-button {
+  margin-top: 8px;
+  height: 42px;
+  border: none;
+  border-radius: 6px;
+  background: #202124;
+  color: white;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.login-button:hover {
+  opacity: 0.95;
+}
+
+.forgot-link {
+  text-align: center;
+  font-size: 0.75rem;
+  color: #d95f02;
+  text-decoration: none;
+}
+
+.error-message {
+  margin-top: 14px;
+  color: crimson;
+  font-size: 0.9rem;
+}
+
+.signup-text {
+  margin-top: 140px;
+  font-size: 0.78rem;
+  color: #222;
+}
+
+.signup-text a {
+  color: #d95f02;
+  text-decoration: underline;
+}
+
+.connexion-right {
+  width: 62%;
+  overflow: hidden;
+}
+
+.connexion-right img {
+  width: 100%;
+  height: 100vh;
+  object-fit: cover;
+  display: block;
+}
+
+/* basic mobile handling for later */
+@media (max-width: 900px) {
+  .connexion-page {
+    flex-direction: column;
+  }
+
+  .connexion-left,
+  .connexion-right {
+    width: 100%;
+  }
+
+  .connexion-right {
+    height: 260px;
+  }
+
+  .connexion-right img {
+    height: 100%;
+  }
+
+  .connexion-content {
+    max-width: 340px;
+  }
+
+  .connexion-logo {
+    margin-bottom: 50px;
+  }
+
+  .signup-text {
+    margin-top: 60px;
+  }
+}

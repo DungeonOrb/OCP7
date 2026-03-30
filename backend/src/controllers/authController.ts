@@ -249,6 +249,7 @@ export const login = async (req: Request, res: Response): Promise<void> => {
     }
 
     // Générer le token JWT
+    console.log("JWT_SECRET exists:", !!process.env.JWT_SECRET);
     const token = generateToken(user.id, user.email);
 
     // Préparer les données utilisateur pour la réponse
@@ -265,9 +266,16 @@ export const login = async (req: Request, res: Response): Promise<void> => {
       token,
     });
   } catch (error) {
-    console.error("Erreur lors de la connexion:", error);
-    sendServerError(res, "Erreur lors de la connexion");
-  }
+  console.error("LOGIN ERROR FULL:", error);
+
+  res.status(500).json({
+    success: false,
+    message: "Erreur lors de la connexion",
+    error: error instanceof Error ? error.message : String(error),
+    stack: error instanceof Error ? error.stack : undefined,
+  });
+  return;
+}
 };
 
 /**
