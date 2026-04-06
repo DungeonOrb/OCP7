@@ -1,0 +1,33 @@
+.footer {
+    width: 100%;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 36px;
+    background: #f3f3f3;
+    border-top: 1px solid #e5e5e5;
+}
+
+.brand {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #202124;
+}
+
+.text {
+    font-size: 0.95rem;
+    color: #202124;
+}
+
+@media (max-width: 768px) {
+    .footer {
+        padding: 0 18px;
+        height: 52px;
+    }
+
+    .brand,
+    .text {
+        font-size: 0.85rem;
+    }
+}
