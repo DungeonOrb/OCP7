@@ -1,8 +1,7 @@
 import { parse } from "cookie";
 import { useRouter } from "next/router";
-import styles from "../styles/Connexion.module.css";
 
-export default function DashboardPage({ dashboardData }) {
+export default function DashboardPage({ dashboardData, error }) {
   const router = useRouter();
 
   async function handleLogout() {
@@ -11,17 +10,15 @@ export default function DashboardPage({ dashboardData }) {
   }
 
   return (
-    <div className={styles.page}>
-      <header className={styles.header}>
-        <h1>Dashboard</h1>
-        <button onClick={handleLogout} className={styles.logoutButton}>
-          Déconnexion
-        </button>
-      </header>
+    <div>
+      <h1>Dashboard</h1>
+      <button onClick={handleLogout}>Déconnexion</button>
 
-      <pre className={styles.card}>
-        {JSON.stringify(dashboardData, null, 2)}
-      </pre>
+      {error ? (
+        <pre style={{ color: "crimson", whiteSpace: "pre-wrap" }}>{error}</pre>
+      ) : (
+        <pre>{JSON.stringify(dashboardData, null, 2)}</pre>
+      )}
     </div>
   );
 }
@@ -39,26 +36,40 @@ export async function getServerSideProps(context) {
     };
   }
 
-  const backendRes = await fetch("http://localhost:8000/dashboard", {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  const headers = {
+    Authorization: `Bearer ${token}`,
+  };
 
-  if (!backendRes.ok) {
+  const [statsRes, tasksRes, projectsRes] = await Promise.all([
+    fetch("http://localhost:8000/dashboard/stats", { headers }),
+    fetch("http://localhost:8000/dashboard/assigned-tasks", { headers }),
+    fetch("http://localhost:8000/dashboard/projects-with-tasks", { headers }),
+  ]);
+
+  const statsText = await statsRes.text();
+  const tasksText = await tasksRes.text();
+  const projectsText = await projectsRes.text();
+
+  if (!statsRes.ok || !tasksRes.ok || !projectsRes.ok) {
     return {
-      redirect: {
-        destination: "/connexion",
-        permanent: false,
+      props: {
+        dashboardData: null,
+        error:
+          `stats: ${statsRes.status} ${statsText}\n\n` +
+          `assigned-tasks: ${tasksRes.status} ${tasksText}\n\n` +
+          `projects-with-tasks: ${projectsRes.status} ${projectsText}`,
       },
     };
   }
 
-  const dashboardData = await backendRes.json();
-
   return {
     props: {
-      dashboardData,
+      dashboardData: {
+        stats: JSON.parse(statsText),
+        assignedTasks: JSON.parse(tasksText),
+        projectsWithTasks: JSON.parse(projectsText),
+      },
+      error: null,
     },
   };
 }

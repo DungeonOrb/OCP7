@@ -1,144 +1,144 @@
 .page {
-  display: flex;
-  width: 100%;
-  min-height: 100vh;
-  background: #f3f3f3;
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+    background: #f3f3f3;
 }
 
 .left {
-  width: 38%;
-  min-width: 320px;
-  background: #f3f3f3;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 40px 24px;
+    width: 38%;
+    min-width: 320px;
+    background: #f3f3f3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 24px;
 }
 
 .content {
-  width: 100%;
-  max-width: 290px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  min-height: 100%;
+    width: 100%;
+    max-width: 290px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 100%;
 }
 
 .logo {
-  font-size: 2.2rem;
-  font-weight: 800;
-  color: #d95f02;
-  letter-spacing: 1px;
-  margin-bottom: 110px;
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: #d95f02;
+    letter-spacing: 1px;
+    margin-bottom: 110px;
 }
 
 .title {
-  color: #d95f02;
-  font-size: 2.2rem;
-  margin-bottom: 24px;
-  font-weight: 600;
+    color: #d95f02;
+    font-size: 2.2rem;
+    margin-bottom: 24px;
+    font-weight: 600;
 }
 
 .form {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
 }
 
 .formGroup {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
 .formGroup label {
-  font-size: 0.8rem;
-  color: #333;
+    font-size: 0.8rem;
+    color: #333;
 }
 
 .formGroup input {
-  height: 32px;
-  border: 1px solid #ddd;
-  background: white;
-  padding: 0 10px;
-  border-radius: 2px;
-  font-size: 0.95rem;
+    height: 32px;
+    border: 1px solid #ddd;
+    background: white;
+    padding: 0 10px;
+    border-radius: 2px;
+    font-size: 0.95rem;
 }
 
 .button {
-  margin-top: 8px;
-  height: 42px;
-  border: none;
-  border-radius: 6px;
-  background: #202124;
-  color: white;
-  font-size: 0.95rem;
-  cursor: pointer;
+    margin-top: 8px;
+    height: 42px;
+    border: none;
+    border-radius: 6px;
+    background: #202124;
+    color: white;
+    font-size: 0.95rem;
+    cursor: pointer;
 }
 
 .forgot {
-  text-align: center;
-  font-size: 0.75rem;
-  color: #d95f02;
-  text-decoration: none;
+    text-align: center;
+    font-size: 0.75rem;
+    color: #d95f02;
+    text-decoration: none;
 }
 
 .error {
-  margin-top: 14px;
-  color: crimson;
-  font-size: 0.9rem;
+    margin-top: 14px;
+    color: crimson;
+    font-size: 0.9rem;
 }
 
 .signup {
-  margin-top: 140px;
-  font-size: 0.78rem;
-  color: #222;
+    margin-top: 140px;
+    font-size: 0.78rem;
+    color: #222;
 }
 
 .signup a {
-  color: #d95f02;
-  text-decoration: underline;
+    color: #d95f02;
+    text-decoration: underline;
 }
 
 .right {
-  width: 62%;
-  overflow: hidden;
+    width: 62%;
+    overflow: hidden;
 }
 
 .image {
-  width: 100%;
-  height: 100vh;
-  object-fit: cover;
-  display: block;
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+    display: block;
 }
 
 @media (max-width: 900px) {
-  .page {
-    flex-direction: column;
-  }
+    .page {
+        flex-direction: column;
+    }
 
-  .left,
-  .right {
-    width: 100%;
-  }
+    .left,
+    .right {
+        width: 100%;
+    }
 
-  .right {
-    height: 260px;
-  }
+    .right {
+        height: 260px;
+    }
 
-  .image {
-    height: 100%;
-  }
+    .image {
+        height: 100%;
+    }
 
-  .content {
-    max-width: 340px;
-  }
+    .content {
+        max-width: 340px;
+    }
 
-  .logo {
-    margin-bottom: 50px;
-  }
+    .logo {
+        margin-bottom: 50px;
+    }
 
-  .signup {
-    margin-top: 60px;
-  }
+    .signup {
+        margin-top: 60px;
+    }
 }

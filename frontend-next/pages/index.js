@@ -2,11 +2,11 @@ import { useEffect } from "react";
 import { useRouter } from "next/router";
 
 export default function Home() {
-  const router = useRouter();
+    const router = useRouter();
 
-  useEffect(() => {
-    router.replace("/connexion");
-  }, [router]);
+    useEffect(() => {
+        router.replace("/connexion");
+    }, [router]);
 
-  return null;
+    return null;
 }

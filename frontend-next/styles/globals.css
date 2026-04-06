@@ -1,16 +1,16 @@
 html,
 body,
 #__next {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100vh;
 }
 
 body {
-  font-family: Arial, sans-serif;
+    font-family: Arial, sans-serif;
 }
 
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
