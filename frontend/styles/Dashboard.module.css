@@ -1,0 +1,285 @@
+.page {
+    min-height: calc(100vh - 76px - 56px);
+    padding: 28px 28px 20px;
+    background: #f3f3f3;
+}
+
+.topRow {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 26px;
+}
+
+.title {
+    margin: 0 0 8px;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #202124;
+}
+
+.subtitle {
+    margin: 0;
+    color: #202124;
+    font-size: 0.98rem;
+}
+
+.createButton {
+    border: none;
+    border-radius: 8px;
+    background: #202124;
+    color: white;
+    padding: 14px 20px;
+    font-size: 0.92rem;
+    cursor: pointer;
+}
+
+.switchRow {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 22px;
+}
+
+.switchButton {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: none;
+    border-radius: 8px;
+    background: transparent;
+    color: #d95f02;
+    padding: 10px 12px;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.switchActive {
+    background: #f2ddcf;
+}
+
+.panel {
+    background: white;
+    border: 1px solid #dfdfdf;
+    border-radius: 8px;
+    padding: 28px 34px 22px;
+}
+
+.panelHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 24px;
+}
+
+.panelTitle {
+    margin: 0 0 6px;
+    font-size: 1.25rem;
+    color: #202124;
+}
+
+.panelSubtitle {
+    margin: 0;
+    color: #7a7a7a;
+    font-size: 0.92rem;
+}
+
+.searchBox {
+    width: 270px;
+    height: 44px;
+    border: 1px solid #e1e1e1;
+    background: white;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    padding: 0 14px;
+    gap: 10px;
+}
+
+.searchBox input {
+    border: none;
+    outline: none;
+    width: 100%;
+    font-size: 0.92rem;
+    background: transparent;
+}
+
+.searchIcon {
+    color: #808080;
+    font-size: 0.85rem;
+}
+
+.cards {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.card {
+    background: white;
+    border: 1px solid #e2e2e2;
+    border-radius: 8px;
+    padding: 20px 22px 16px;
+}
+
+.cardMain {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 18px;
+    margin-bottom: 20px;
+}
+
+.cardTitle {
+    margin: 0 0 6px;
+    font-size: 1.1rem;
+    color: #202124;
+}
+
+.cardDescription {
+    margin: 0;
+    color: #8a8a8a;
+    font-size: 0.92rem;
+}
+
+.statusBadge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 86px;
+    padding: 8px 12px;
+    border-radius: 999px;
+    font-size: 0.82rem;
+    font-weight: 500;
+}
+
+.statusTodo {
+    background: #fde1e1;
+    color: #eb6a6a;
+}
+
+.statusInProgress {
+    background: #fce9c9;
+    color: #d49a1b;
+}
+
+.statusDone {
+    background: #dff3e5;
+    color: #2d9d57;
+}
+
+.cardBottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+}
+
+.metaRow {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    flex-wrap: wrap;
+}
+
+.metaItem {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #8a8a8a;
+    font-size: 0.82rem;
+}
+
+.viewButton {
+    min-width: 72px;
+    padding: 10px 16px;
+    border-radius: 8px;
+    background: #202124;
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+.emptyState {
+    padding: 28px 12px;
+    color: #6f6f6f;
+    text-align: center;
+}
+
+.errorBox {
+    white-space: pre-wrap;
+    color: crimson;
+    background: white;
+    border: 1px solid #e2e2e2;
+    border-radius: 8px;
+    padding: 18px;
+}
+
+@media (max-width: 900px) {
+    .page {
+        padding: 20px 16px;
+    }
+
+    .topRow,
+    .panelHeader,
+    .cardMain,
+    .cardBottom {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .searchBox {
+        width: 100%;
+    }
+
+    .viewButton {
+        align-self: flex-start;
+    }
+}
+
+.kanbanGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.kanbanColumn {
+  border: 1px solid #f0d6cd;
+  border-radius: 8px;
+  background: transparent;
+  padding: 16px 14px 18px;
+}
+
+.kanbanHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.kanbanHeader h2 {
+  margin: 0;
+  font-size: 1.05rem;
+  color: #202124;
+}
+
+.countBadge {
+  min-width: 28px;
+  height: 24px;
+  border-radius: 999px;
+  background: #e4e5ea;
+  color: #6f7482;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  padding: 0 8px;
+}
+
+.kanbanCards {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
