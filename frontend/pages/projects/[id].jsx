@@ -1,5 +1,5 @@
 import { parse } from "cookie";
-import Link from "next/link";
+import { useMemo, useState } from "react";
 import { useRouter } from "next/router";
 import {
   ArrowLeft,
@@ -63,6 +63,8 @@ function formatDueDate(dateString) {
 
 export default function ProjectDetailsPage({ project, error }) {
   const router = useRouter();
+  const [search, setSearch] = useState("");
+  const [statusFilter, setStatusFilter] = useState("ALL");
 
   if (error) {
     return (
@@ -96,6 +98,22 @@ export default function ProjectDetailsPage({ project, error }) {
       role: member.role === "ADMIN" ? "Admin" : "Contributeur",
     })),
   ];
+
+  const filteredTasks = useMemo(() => {
+    const normalizedSearch = search.trim().toLowerCase();
+
+    return (project.tasks || []).filter((task) => {
+      const taskName = (task.title || "").toLowerCase();
+
+      const matchesSearch =
+        !normalizedSearch || taskName.includes(normalizedSearch);
+
+      const matchesStatus =
+        statusFilter === "ALL" || task.status === statusFilter;
+
+      return matchesSearch && matchesStatus;
+    });
+  }, [project.tasks, search, statusFilter]);
 
   return (
     <main className={styles.page}>
@@ -138,12 +156,17 @@ export default function ProjectDetailsPage({ project, error }) {
       <section className={styles.membersBar}>
         <div className={styles.membersTitle}>
           <span>Contributeurs</span>
-          <span className={styles.membersCount}>{members.length} personnes</span>
+          <span className={styles.membersCount}>
+            {members.length} personnes
+          </span>
         </div>
 
         <div className={styles.membersList}>
           {members.map((member) => (
-            <div key={`${member.id}-${member.role}`} className={styles.memberChip}>
+            <div
+              key={`${member.id}-${member.role}`}
+              className={styles.memberChip}
+            >
               <span className={styles.avatar}>{getInitials(member.name)}</span>
               <span
                 className={
@@ -167,7 +190,10 @@ export default function ProjectDetailsPage({ project, error }) {
           </div>
 
           <div className={styles.tasksControls}>
-            <button type="button" className={`${styles.viewButton} ${styles.viewActive}`}>
+            <button
+              type="button"
+              className={`${styles.viewButton} ${styles.viewActive}`}
+            >
               <CheckSquare size={15} />
               <span>Liste</span>
             </button>
@@ -177,23 +203,39 @@ export default function ProjectDetailsPage({ project, error }) {
               <span>Calendrier</span>
             </button>
 
-            <button type="button" className={styles.filterButton}>
-              <span>Statut</span>
-              <ChevronDown size={15} />
-            </button>
+            <div className={styles.selectWrapper}>
+              <select
+                className={styles.filterSelect}
+                value={statusFilter}
+                onChange={(e) => setStatusFilter(e.target.value)}
+              >
+                <option value="ALL">Statut</option>
+                <option value="TODO">À faire</option>
+                <option value="IN_PROGRESS">En cours</option>
+                <option value="DONE">Terminée</option>
+              </select>
+              <ChevronDown size={15} className={styles.selectIcon} />
+            </div>
 
             <label className={styles.searchBox}>
-              <input type="text" placeholder="Rechercher une tâche" />
+              <input
+                type="text"
+                placeholder="Rechercher une tâche"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+              />
               <Search size={15} />
             </label>
           </div>
         </div>
 
         <div className={styles.taskList}>
-          {(project.tasks || []).length === 0 ? (
-            <div className={styles.emptyState}>Aucune tâche dans ce projet.</div>
+          {filteredTasks.length === 0 ? (
+            <div className={styles.emptyState}>
+              Aucune tâche ne correspond aux filtres.
+            </div>
           ) : (
-            project.tasks.map((task) => (
+            filteredTasks.map((task) => (
               <article key={task.id} className={styles.taskCard}>
                 <div className={styles.taskTop}>
                   <div>
@@ -223,7 +265,8 @@ export default function ProjectDetailsPage({ project, error }) {
 
                 <div className={styles.taskMeta}>
                   <span>
-                    Échéance : <CalendarDays size={14} /> {formatDueDate(task.dueDate)}
+                    Échéance : <CalendarDays size={14} />{" "}
+                    {formatDueDate(task.dueDate)}
                   </span>
                 </div>
 
