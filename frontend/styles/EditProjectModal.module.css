@@ -1,0 +1,100 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.18);
+  display: flex;
+  justify-content: flex-end;
+  z-index: 1000;
+}
+
+.modal {
+  width: 560px;
+  min-height: 100vh;
+  background: #f8f8f8;
+  padding: 56px 62px;
+  position: relative;
+  box-shadow: -8px 0 24px rgba(0, 0, 0, 0.08);
+}
+
+.closeButton {
+  position: absolute;
+  top: 22px;
+  right: 28px;
+  border: none;
+  background: transparent;
+  font-size: 1.8rem;
+  color: #7f8692;
+  cursor: pointer;
+}
+
+.title {
+  margin: 0 0 42px;
+  font-size: 2rem;
+  color: #202124;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.field label {
+  font-size: 1rem;
+  color: #202124;
+}
+
+.field input,
+.fakeSelect {
+  height: 58px;
+  border: 1px solid #e1e1e1;
+  border-radius: 5px;
+  background: white;
+  padding: 0 18px;
+  outline: none;
+  font-size: 1rem;
+  color: #7f8692;
+}
+
+.fakeSelect {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.submitButton {
+  margin-top: 38px;
+  align-self: flex-start;
+  border: none;
+  border-radius: 10px;
+  background: #202124;
+  color: white;
+  padding: 18px 42px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.submitButton:disabled {
+  background: #d9dde3;
+  color: #9aa0aa;
+  cursor: default;
+}
+
+.error {
+  color: crimson;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+@media (max-width: 640px) {
+  .modal {
+    width: 100%;
+    padding: 48px 28px;
+  }
+}
