@@ -49,6 +49,7 @@
   color: #d95f02;
   cursor: pointer;
   font-size: 0.92rem;
+  text-decoration: underline;
 }
 
 .subtitle {
@@ -401,3 +402,19 @@
   color: #7f8692;
   pointer-events: none;
 }
+
+.projectActions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.deleteLink {
+  border: none;
+  background: transparent;
+  color: #d95f02;
+  cursor: pointer;
+  font-size: 0.92rem;
+  text-decoration: underline;
+}
+

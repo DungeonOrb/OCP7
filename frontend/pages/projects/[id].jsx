@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import styles from "../../styles/ProjectDetails.module.css";
 import EditProjectModal from "../../components/EditProjectModal";
+import CreateTaskModal from "../../components/CreateTaskModal";
 
 function getInitials(name) {
     if (!name || !name.trim()) return "??";
@@ -63,6 +64,7 @@ function formatDueDate(dateString) {
 }
 
 export default function ProjectDetailsPage({ project, error }) {
+    const [isCreateTaskOpen, setIsCreateTaskOpen] = useState(false);
     const [isEditOpen, setIsEditOpen] = useState(false);
     const [currentProject, setCurrentProject] = useState(project);
     const router = useRouter();
@@ -84,7 +86,35 @@ export default function ProjectDetailsPage({ project, error }) {
             </main>
         );
     }
+async function handleDeleteProject() {
+  const confirmed = window.confirm(
+    "Êtes-vous sûr de vouloir supprimer ce projet ? Cette action est irréversible."
+  );
 
+  if (!confirmed) return;
+
+  try {
+    const res = await fetch("/api/projects", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: currentProject.id,
+      }),
+    });
+
+    const data = await res.json().catch(() => ({}));
+
+    if (!res.ok) {
+      throw new Error(data?.message || "Erreur lors de la suppression");
+    }
+
+    router.push("/projects");
+  } catch (err) {
+    alert(err.message || "Erreur lors de la suppression du projet");
+  }
+}
     const members = [
         ...(project.owner
             ? [
@@ -135,13 +165,23 @@ export default function ProjectDetailsPage({ project, error }) {
                             <h1 className={styles.title}>
                                 {project.name || "Nom du projet"}
                             </h1>
-                            <button
-                                type="button"
-                                className={styles.editLink}
-                                onClick={() => setIsEditOpen(true)}
-                            >
-                                Modifier
-                            </button>
+                            <div className={styles.projectActions}>
+  <button
+    type="button"
+    className={styles.editLink}
+    onClick={() => setIsEditOpen(true)}
+  >
+    Modifier
+  </button>
+
+  <button
+    type="button"
+    className={styles.deleteLink}
+    onClick={handleDeleteProject}
+  >
+    Supprimer
+  </button>
+</div>
                         </div>
 
                         <p className={styles.subtitle}>
@@ -151,7 +191,11 @@ export default function ProjectDetailsPage({ project, error }) {
                 </div>
 
                 <div className={styles.actions}>
-                    <button type="button" className={styles.darkButton}>
+                    <button
+                        type="button"
+                        className={styles.darkButton}
+                        onClick={() => setIsCreateTaskOpen(true)}
+                    >
                         Créer une tâche
                     </button>
                     <button type="button" className={styles.orangeButton}>
@@ -308,11 +352,17 @@ export default function ProjectDetailsPage({ project, error }) {
                 </div>
             </section>
             <EditProjectModal
-  isOpen={isEditOpen}
-  project={currentProject}
-  onClose={() => setIsEditOpen(false)}
-  onUpdated={() => router.replace(router.asPath)}
-/>
+                isOpen={isEditOpen}
+                project={currentProject}
+                onClose={() => setIsEditOpen(false)}
+                onUpdated={() => router.replace(router.asPath)}
+            />
+            <CreateTaskModal
+                isOpen={isCreateTaskOpen}
+                onClose={() => setIsCreateTaskOpen(false)}
+                project={currentProject}
+                onCreated={() => router.replace(router.asPath)}
+            />
         </main>
     );
 }
