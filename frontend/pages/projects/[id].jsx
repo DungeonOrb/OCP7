@@ -12,6 +12,7 @@ import {
 import styles from "../../styles/ProjectDetails.module.css";
 import EditProjectModal from "../../components/EditProjectModal";
 import CreateTaskModal from "../../components/CreateTaskModal";
+import EditTaskModal from "../../components/EditTaskModal";
 
 function getInitials(name) {
     if (!name || !name.trim()) return "??";
@@ -70,6 +71,9 @@ export default function ProjectDetailsPage({ project, error }) {
     const router = useRouter();
     const [search, setSearch] = useState("");
     const [statusFilter, setStatusFilter] = useState("ALL");
+    const [openTaskMenuId, setOpenTaskMenuId] = useState(null);
+    const [selectedTask, setSelectedTask] = useState(null);
+    const [isEditTaskOpen, setIsEditTaskOpen] = useState(false);
 
     if (error) {
         return (
@@ -78,29 +82,22 @@ export default function ProjectDetailsPage({ project, error }) {
             </main>
         );
     }
-
-    if (!project) {
-        return (
-            <main className={styles.page}>
-                <div className={styles.errorBox}>Projet introuvable.</div>
-            </main>
-        );
-    }
-async function handleDeleteProject() {
+async function handleDeleteTask(task) {
   const confirmed = window.confirm(
-    "Êtes-vous sûr de vouloir supprimer ce projet ? Cette action est irréversible."
+    `Êtes-vous sûr de vouloir supprimer la tâche "${task.title}" ?`
   );
 
   if (!confirmed) return;
 
   try {
-    const res = await fetch("/api/projects", {
+    const res = await fetch("/api/tasks", {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        id: currentProject.id,
+        projectId: currentProject.id,
+        taskId: task.id,
       }),
     });
 
@@ -110,11 +107,48 @@ async function handleDeleteProject() {
       throw new Error(data?.message || "Erreur lors de la suppression");
     }
 
-    router.push("/projects");
+    setOpenTaskMenuId(null);
+    router.replace(router.asPath);
   } catch (err) {
-    alert(err.message || "Erreur lors de la suppression du projet");
+    alert(err.message || "Erreur lors de la suppression de la tâche");
   }
 }
+    if (!project) {
+        return (
+            <main className={styles.page}>
+                <div className={styles.errorBox}>Projet introuvable.</div>
+            </main>
+        );
+    }
+    async function handleDeleteProject() {
+        const confirmed = window.confirm(
+            "Êtes-vous sûr de vouloir supprimer ce projet ? Cette action est irréversible."
+        );
+
+        if (!confirmed) return;
+
+        try {
+            const res = await fetch("/api/projects", {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    id: currentProject.id,
+                }),
+            });
+
+            const data = await res.json().catch(() => ({}));
+
+            if (!res.ok) {
+                throw new Error(data?.message || "Erreur lors de la suppression");
+            }
+
+            router.push("/projects");
+        } catch (err) {
+            alert(err.message || "Erreur lors de la suppression du projet");
+        }
+    }
     const members = [
         ...(project.owner
             ? [
@@ -166,22 +200,22 @@ async function handleDeleteProject() {
                                 {project.name || "Nom du projet"}
                             </h1>
                             <div className={styles.projectActions}>
-  <button
-    type="button"
-    className={styles.editLink}
-    onClick={() => setIsEditOpen(true)}
-  >
-    Modifier
-  </button>
+                                <button
+                                    type="button"
+                                    className={styles.editLink}
+                                    onClick={() => setIsEditOpen(true)}
+                                >
+                                    Modifier
+                                </button>
 
-  <button
-    type="button"
-    className={styles.deleteLink}
-    onClick={handleDeleteProject}
-  >
-    Supprimer
-  </button>
-</div>
+                                <button
+                                    type="button"
+                                    className={styles.deleteLink}
+                                    onClick={handleDeleteProject}
+                                >
+                                    Supprimer
+                                </button>
+                            </div>
                         </div>
 
                         <p className={styles.subtitle}>
@@ -309,9 +343,39 @@ async function handleDeleteProject() {
                                         </p>
                                     </div>
 
-                                    <button type="button" className={styles.moreButton}>
-                                        <MoreHorizontal size={16} />
-                                    </button>
+                                    <div className={styles.taskMenuWrapper}>
+                                        <button
+                                            type="button"
+                                            className={styles.moreButton}
+                                            onClick={() =>
+                                                setOpenTaskMenuId(openTaskMenuId === task.id ? null : task.id)
+                                            }
+                                        >
+                                            <MoreHorizontal size={16} />
+                                        </button>
+
+                                        {openTaskMenuId === task.id && (
+                                            <div className={styles.taskMenu}>
+                                                <button
+                                                    type="button"
+                                                    onClick={() => {
+                                                        setSelectedTask(task);
+                                                        setIsEditTaskOpen(true);
+                                                        setOpenTaskMenuId(null);
+                                                    }}
+                                                >
+                                                    Modifier
+                                                </button>
+
+                                                <button
+  type="button"
+  onClick={() => handleDeleteTask(task)}
+>
+  Supprimer
+</button>
+                                            </div>
+                                        )}
+                                    </div>
                                 </div>
 
                                 <div className={styles.taskMeta}>
@@ -362,6 +426,13 @@ async function handleDeleteProject() {
                 onClose={() => setIsCreateTaskOpen(false)}
                 project={currentProject}
                 onCreated={() => router.replace(router.asPath)}
+            />
+            <EditTaskModal
+                isOpen={isEditTaskOpen}
+                onClose={() => setIsEditTaskOpen(false)}
+                project={currentProject}
+                task={selectedTask}
+                onUpdated={() => router.replace(router.asPath)}
             />
         </main>
     );
