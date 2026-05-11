@@ -50,8 +50,10 @@ export default function ConnexionPage() {
 
                     <form onSubmit={handleSubmit} className={styles.connexionForm}>
                         <div className={styles.formGroup}>
-                            <label>Email</label>
+                            <label htmlFor="email">Email</label>
                             <input
+                                id="email"
+                                name="email"
                                 type="email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
@@ -59,11 +61,14 @@ export default function ConnexionPage() {
                         </div>
 
                         <div className={styles.formGroup}>
-                            <label>Mot de passe</label>
+                            <label htmlFor="login-password">Mot de passe</label>
                             <input
+                                id="login-password"
+                                name="password"
                                 type="password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
+                                autoComplete="current-password"
                             />
                         </div>
 

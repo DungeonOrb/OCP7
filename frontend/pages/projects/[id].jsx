@@ -13,6 +13,7 @@ import styles from "../../styles/ProjectDetails.module.css";
 import EditProjectModal from "../../components/EditProjectModal";
 import CreateTaskModal from "../../components/CreateTaskModal";
 import EditTaskModal from "../../components/EditTaskModal";
+import AITaskModal from "../../components/AITaskModal";
 
 function getInitials(name) {
     if (!name || !name.trim()) return "??";
@@ -74,6 +75,7 @@ export default function ProjectDetailsPage({ project, error }) {
     const [openTaskMenuId, setOpenTaskMenuId] = useState(null);
     const [selectedTask, setSelectedTask] = useState(null);
     const [isEditTaskOpen, setIsEditTaskOpen] = useState(false);
+    const [isAIModalOpen, setIsAIModalOpen] = useState(false);
 
     if (error) {
         return (
@@ -232,9 +234,13 @@ async function handleDeleteTask(task) {
                     >
                         Créer une tâche
                     </button>
-                    <button type="button" className={styles.orangeButton}>
-                        ✦ IA
-                    </button>
+                    <button
+  type="button"
+  className={styles.orangeButton}
+  onClick={() => setIsAIModalOpen(true)}
+>
+  ✦ IA
+</button>
                 </div>
             </section>
 
@@ -434,6 +440,12 @@ async function handleDeleteTask(task) {
                 task={selectedTask}
                 onUpdated={() => router.replace(router.asPath)}
             />
+            <AITaskModal
+  isOpen={isAIModalOpen}
+  onClose={() => setIsAIModalOpen(false)}
+  project={currentProject}
+  onCreated={() => router.replace(router.asPath)}
+/>
         </main>
     );
 }

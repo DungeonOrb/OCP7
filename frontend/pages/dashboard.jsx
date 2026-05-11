@@ -198,14 +198,17 @@ export default function DashboardPage({ profileName, tasks, error }) {
                         </div>
 
                         <label className={styles.searchBox}>
-                            <input
-                                type="text"
-                                placeholder="Rechercher une tâche"
-                                value={search}
-                                onChange={(e) => setSearch(e.target.value)}
-                            />
-                            <FaSearch className={styles.searchIcon} />
-                        </label>
+  <span className={styles.srOnly}>Rechercher une tâche</span>
+
+  <input
+    type="text"
+    placeholder="Rechercher une tâche"
+    value={search}
+    onChange={(e) => setSearch(e.target.value)}
+  />
+
+  <FaSearch className={styles.searchIcon} aria-hidden="true" />
+</label>
                     </div>
 
                     <div className={styles.cards}>

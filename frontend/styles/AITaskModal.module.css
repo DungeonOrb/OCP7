@@ -1,0 +1,184 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.28);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 24px;
+}
+
+.modal {
+  width: 100%;
+  max-width: 420px;
+  min-height: 560px;
+  max-height: calc(100vh - 48px);
+  background: #f8f8f8;
+  border-radius: 12px;
+  padding: 28px 30px;
+  position: relative;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.18);
+  overflow-y: auto;
+}
+
+.closeButton {
+  position: absolute;
+  top: 16px;
+  right: 18px;
+  border: none;
+  background: transparent;
+  font-size: 1.7rem;
+  color: #7f8692;
+  cursor: pointer;
+}
+
+.title {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.35rem;
+  color: #202124;
+}
+
+.sparkle {
+  color: #d95f02;
+}
+
+.promptForm {
+  display: flex;
+  flex-direction: column;
+  min-height: 500px;
+}
+
+.spacer {
+  flex: 1;
+}
+
+.promptBox,
+.promptBoxBottom {
+  height: 42px;
+  background: white;
+  border-radius: 999px;
+  border: 1px solid #ececec;
+  display: flex;
+  align-items: center;
+  padding: 0 8px 0 18px;
+  gap: 8px;
+}
+
+.promptBoxBottom {
+  margin-top: 22px;
+}
+
+.promptBox input,
+.promptBoxBottom input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 0.78rem;
+}
+
+.promptButton {
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  border: none;
+  background: #d95f02;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.promptButton:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.generatedList {
+  margin-top: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.taskCard {
+  background: white;
+  border: 1px solid #e2e2e2;
+  border-radius: 8px;
+  padding: 16px 18px;
+}
+
+.taskTitleInput {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #202124;
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.taskDescriptionInput {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #7f8692;
+  font-size: 0.86rem;
+  margin-bottom: 18px;
+}
+
+.taskActions {
+  display: flex;
+  gap: 18px;
+  color: #7f8692;
+  font-size: 0.78rem;
+}
+
+.taskActions button,
+.taskActions span {
+  border: none;
+  background: transparent;
+  color: #7f8692;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0;
+  cursor: pointer;
+}
+
+.addTasksButton {
+  display: block;
+  margin: 20px auto 0;
+  border: none;
+  border-radius: 8px;
+  background: #202124;
+  color: white;
+  padding: 14px 20px;
+  cursor: pointer;
+}
+
+.addTasksButton:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.error {
+  margin: 14px 0;
+  color: crimson;
+  font-size: 0.85rem;
+}
+
+@media (max-width: 520px) {
+  .overlay {
+    padding: 12px;
+  }
+
+  .modal {
+    max-width: 100%;
+  }
+}

@@ -44,29 +44,38 @@ export default function InscriptionPage() {
 
           <form onSubmit={handleSubmit} className={styles.inscriptionForm}>
             <div className={styles.formGroup}>
-              <label>Nom</label>
+              <label htmlFor="register-name">Nom</label>
               <input
+                id="register-name"
+                name="name"
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
+                autoComplete="name"
               />
             </div>
 
             <div className={styles.formGroup}>
-              <label>Email</label>
+              <label htmlFor="register-email">Email</label>
               <input
+                id="register-email"
+                name="email"
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                autoComplete="email"
               />
             </div>
 
             <div className={styles.formGroup}>
-              <label>Mot de passe</label>
+              <label htmlFor="register-password">Mot de passe</label>
               <input
+                id="register-password"
+                name="password"
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                autoComplete="new-password"
               />
             </div>
 
