@@ -110,44 +110,51 @@ export default function CreateProjectModal({ isOpen, onClose, onCreated }) {
 
                 <form onSubmit={handleSubmit} className={styles.form}>
                     <div className={styles.field}>
-                        <label>Titre*</label>
-                        <input value={name} onChange={(e) => setName(e.target.value)} />
+                        <label htmlFor="title">Titre*</label>
+                        <input
+                            id="title"
+                            name="titre"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                        />
                     </div>
 
                     <div className={styles.field}>
-                        <label>Description*</label>
+                        <label htmlFor="description">Description*</label>
                         <input
+                            id="description"
+                            name="description"
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
                         />
                     </div>
 
-                    <div className={styles.field}>
-                        <label>Contributeurs</label>
+                    <div className={styles.contributorBox}>
+                        <label htmlFor="contributors">Contributeurs</label>
+                        <input
+                            id="contributors"
+                            name="contributors"
+                            value={contributorQuery}
+                            onChange={(e) => handleContributorSearch(e.target.value)}
+                            placeholder="Choisir un ou plusieurs collaborateurs"
+                        />
 
-                        <div className={styles.contributorBox}>
-                            <input
-                                value={contributorQuery}
-                                onChange={(e) => handleContributorSearch(e.target.value)}
-                                placeholder="Choisir un ou plusieurs collaborateurs"
-                            />
 
-                            {contributorResults.length > 0 && (
-                                <div className={styles.resultsList}>
-                                    {contributorResults.map((user) => (
-                                        <button
-                                            type="button"
-                                            key={user.id}
-                                            className={styles.resultItem}
-                                            onClick={() => addContributor(user)}
-                                        >
-                                            <span>{user.name || user.email}</span>
-                                            <small>{user.email}</small>
-                                        </button>
-                                    ))}
-                                </div>
-                            )}
-                        </div>
+                        {contributorResults.length > 0 && (
+                            <div className={styles.resultsList}>
+                                {contributorResults.map((user) => (
+                                    <button
+                                        type="button"
+                                        key={user.id}
+                                        className={styles.resultItem}
+                                        onClick={() => addContributor(user)}
+                                    >
+                                        <span>{user.name || user.email}</span>
+                                        <small>{user.email}</small>
+                                    </button>
+                                ))}
+                            </div>
+                        )}
 
                         {selectedContributors.length > 0 && (
                             <div className={styles.selectedList}>

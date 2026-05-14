@@ -21,6 +21,7 @@ export default function App({ Component, pageProps }) {
           name="description"
           content="Abricot, application de gestion de projets et de tâches."
         />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
       {!hideLayout && <Header />}

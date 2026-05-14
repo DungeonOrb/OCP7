@@ -84,37 +84,37 @@ export default function ProjectDetailsPage({ project, error }) {
             </main>
         );
     }
-async function handleDeleteTask(task) {
-  const confirmed = window.confirm(
-    `Êtes-vous sûr de vouloir supprimer la tâche "${task.title}" ?`
-  );
+    async function handleDeleteTask(task) {
+        const confirmed = window.confirm(
+            `Êtes-vous sûr de vouloir supprimer la tâche "${task.title}" ?`
+        );
 
-  if (!confirmed) return;
+        if (!confirmed) return;
 
-  try {
-    const res = await fetch("/api/tasks", {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        projectId: currentProject.id,
-        taskId: task.id,
-      }),
-    });
+        try {
+            const res = await fetch("/api/tasks", {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    projectId: currentProject.id,
+                    taskId: task.id,
+                }),
+            });
 
-    const data = await res.json().catch(() => ({}));
+            const data = await res.json().catch(() => ({}));
 
-    if (!res.ok) {
-      throw new Error(data?.message || "Erreur lors de la suppression");
+            if (!res.ok) {
+                throw new Error(data?.message || "Erreur lors de la suppression");
+            }
+
+            setOpenTaskMenuId(null);
+            router.replace(router.asPath);
+        } catch (err) {
+            alert(err.message || "Erreur lors de la suppression de la tâche");
+        }
     }
-
-    setOpenTaskMenuId(null);
-    router.replace(router.asPath);
-  } catch (err) {
-    alert(err.message || "Erreur lors de la suppression de la tâche");
-  }
-}
     if (!project) {
         return (
             <main className={styles.page}>
@@ -190,10 +190,11 @@ async function handleDeleteTask(task) {
                 <div className={styles.titleBlock}>
                     <button
                         type="button"
-                        onClick={() => router.back()}
                         className={styles.backButton}
+                        onClick={() => router.push("/projects")}
+                        aria-label="Retour aux projets"
                     >
-                        <ArrowLeft size={18} />
+                        <ArrowLeft size={18} aria-hidden="true" />
                     </button>
 
                     <div>
@@ -235,12 +236,12 @@ async function handleDeleteTask(task) {
                         Créer une tâche
                     </button>
                     <button
-  type="button"
-  className={styles.orangeButton}
-  onClick={() => setIsAIModalOpen(true)}
->
-  ✦ IA
-</button>
+                        type="button"
+                        className={styles.orangeButton}
+                        onClick={() => setIsAIModalOpen(true)}
+                    >
+                        ✦ IA
+                    </button>
                 </div>
             </section>
 
@@ -308,15 +309,22 @@ async function handleDeleteTask(task) {
                             <ChevronDown size={15} className={styles.selectIcon} />
                         </div>
 
-                        <label className={styles.searchBox}>
-                            <input
-                                type="text"
-                                placeholder="Rechercher une tâche"
-                                value={search}
-                                onChange={(e) => setSearch(e.target.value)}
-                            />
-                            <Search size={15} />
-                        </label>
+                        <div className={styles.searchBox}>
+  <label htmlFor="project-task-search" className={styles.srOnly}>
+    Rechercher une tâche
+  </label>
+
+  <input
+    id="project-task-search"
+    name="project-task-search"
+    type="text"
+    placeholder="Rechercher une tâche"
+    value={search}
+    onChange={(e) => setSearch(e.target.value)}
+  />
+
+  <Search size={16} className={styles.searchIcon} aria-hidden="true" />
+</div>
                     </div>
                 </div>
 
@@ -356,8 +364,10 @@ async function handleDeleteTask(task) {
                                             onClick={() =>
                                                 setOpenTaskMenuId(openTaskMenuId === task.id ? null : task.id)
                                             }
+                                            aria-label={`Ouvrir les actions de la tâche ${task.title}`}
+                                            aria-expanded={openTaskMenuId === task.id}
                                         >
-                                            <MoreHorizontal size={16} />
+                                            <MoreHorizontal size={16} aria-hidden="true" />
                                         </button>
 
                                         {openTaskMenuId === task.id && (
@@ -374,11 +384,11 @@ async function handleDeleteTask(task) {
                                                 </button>
 
                                                 <button
-  type="button"
-  onClick={() => handleDeleteTask(task)}
->
-  Supprimer
-</button>
+                                                    type="button"
+                                                    onClick={() => handleDeleteTask(task)}
+                                                >
+                                                    Supprimer
+                                                </button>
                                             </div>
                                         )}
                                     </div>
@@ -441,11 +451,11 @@ async function handleDeleteTask(task) {
                 onUpdated={() => router.replace(router.asPath)}
             />
             <AITaskModal
-  isOpen={isAIModalOpen}
-  onClose={() => setIsAIModalOpen(false)}
-  project={currentProject}
-  onCreated={() => router.replace(router.asPath)}
-/>
+                isOpen={isAIModalOpen}
+                onClose={() => setIsAIModalOpen(false)}
+                project={currentProject}
+                onCreated={() => router.replace(router.asPath)}
+            />
         </main>
     );
 }

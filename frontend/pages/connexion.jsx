@@ -4,8 +4,8 @@ import styles from "../styles/Connexion.module.css";
 
 export default function ConnexionPage() {
     const router = useRouter();
-    const [email, setEmail] = useState("alice@example.com");
-    const [password, setPassword] = useState("password123");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
     const [error, setError] = useState("");
 
     async function handleSubmit(e) {
@@ -28,7 +28,8 @@ export default function ConnexionPage() {
             console.log("Login response data:", data);
 
             if (!res.ok) {
-                throw new Error(data?.message || "Erreur lors de la connexion");
+                setError(data.message || "Données de connexion invalides");
+                return;
             }
 
             console.log("Before redirect to /dashboard");

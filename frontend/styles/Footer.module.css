@@ -19,7 +19,7 @@
     font-size: 0.95rem;
     color: #202124;
 }
-
+/* responsive */
 @media (max-width: 768px) {
     .footer {
         padding: 0 18px;

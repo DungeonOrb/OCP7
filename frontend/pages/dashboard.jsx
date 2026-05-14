@@ -141,14 +141,14 @@ export default function DashboardPage({ profileName, tasks, error }) {
 
     if (error) {
         return (
-            <main className={styles.page}>
+            <div className={styles.page}>
                 <div className={styles.errorBox}>{error}</div>
-            </main>
+            </div>
         );
     }
 
     return (
-        <main className={styles.page}>
+        <div className={styles.page}>
             <section className={styles.topRow}>
                 <div>
                     <h1 className={styles.title}>Tableau de bord</h1>
@@ -198,17 +198,17 @@ export default function DashboardPage({ profileName, tasks, error }) {
                         </div>
 
                         <label className={styles.searchBox}>
-  <span className={styles.srOnly}>Rechercher une tâche</span>
+                            <span className={styles.srOnly}>Rechercher une tâche</span>
 
-  <input
-    type="text"
-    placeholder="Rechercher une tâche"
-    value={search}
-    onChange={(e) => setSearch(e.target.value)}
-  />
+                            <input
+                                type="text"
+                                placeholder="Rechercher une tâche"
+                                value={search}
+                                onChange={(e) => setSearch(e.target.value)}
+                            />
 
-  <FaSearch className={styles.searchIcon} aria-hidden="true" />
-</label>
+                            <FaSearch className={styles.searchIcon} aria-hidden="true" />
+                        </label>
                     </div>
 
                     <div className={styles.cards}>
@@ -265,7 +265,7 @@ export default function DashboardPage({ profileName, tasks, error }) {
                 onClose={() => setIsCreateProjectOpen(false)}
                 onCreated={() => router.push("/projects")}
             />
-        </main>
+        </div>
     );
 }
 

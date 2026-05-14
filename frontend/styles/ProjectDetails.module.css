@@ -46,7 +46,7 @@
 .editLink {
   border: none;
   background: transparent;
-  color: #d95f02;
+  color: #923e02;
   cursor: pointer;
   font-size: 0.92rem;
   text-decoration: underline;
@@ -54,7 +54,7 @@
 
 .subtitle {
   margin: 0;
-  color: #7f8692;
+  color: #595959;
   font-size: 1rem;
 }
 
@@ -77,7 +77,7 @@
 }
 
 .orangeButton {
-  background: #d95f02;
+  background: #924002;
 }
 
 .membersBar {
@@ -101,7 +101,7 @@
 }
 
 .membersCount {
-  color: #8d939d;
+  color: #595959;
   font-weight: 400;
 }
 
@@ -139,7 +139,7 @@
   padding: 0 10px;
   border-radius: 999px;
   background: #f8dfcf;
-  color: #d95f02;
+  color: #923e02;
   font-size: 0.8rem;
 }
 
@@ -150,7 +150,7 @@
   padding: 0 10px;
   border-radius: 999px;
   background: #eceff3;
-  color: #7a818d;
+  color: #595959;
   font-size: 0.8rem;
 }
 
@@ -177,7 +177,7 @@
 
 .tasksSubtitle {
   margin: 0;
-  color: #7a7a7a;
+  color: #595959;
   font-size: 0.92rem;
 }
 
@@ -198,7 +198,7 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  color: #d95f02;
+  color: #923e02;
 }
 
 .viewActive {
@@ -261,7 +261,7 @@
 
 .taskDescription {
   margin: 0;
-  color: #7f8692;
+  color: #595959;
   font-size: 0.95rem;
 }
 
@@ -297,7 +297,7 @@
 }
 
 .assigneesLabel {
-  color: #8d939d;
+  color: #595955;
   font-size: 0.82rem;
 }
 
@@ -310,7 +310,7 @@
 .commentsRow {
   padding-top: 14px;
   border-top: 1px solid #ececec;
-  color: #4d4f54;
+  color: #595959;
   font-size: 0.9rem;
 }
 
@@ -327,17 +327,17 @@
 
 .statusTodo {
   background: #fde1e1;
-  color: #eb6a6a;
+  color: #8E1515;
 }
 
 .statusInProgress {
   background: #fce9c9;
-  color: #d49a1b;
+  color: #833a02;
 }
 
 .statusDone {
   background: #dff3e5;
-  color: #2d9d57;
+  color: #195a32;
 }
 
 .emptyState,
@@ -389,7 +389,7 @@
   padding: 0 38px 0 14px;
   appearance: none;
   outline: none;
-  color: #d95f02;
+  color: #923e02;
   font-size: 0.92rem;
   cursor: pointer;
 }
@@ -412,7 +412,7 @@
 .deleteLink {
   border: none;
   background: transparent;
-  color: #d95f02;
+  color: #923e02;
   cursor: pointer;
   font-size: 0.92rem;
   text-decoration: underline;
@@ -451,4 +451,17 @@
 
 .taskMenu button:last-child {
   color: #d93025;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+  color:#195a32
 }

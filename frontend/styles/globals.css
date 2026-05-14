@@ -14,3 +14,72 @@ body {
 * {
     box-sizing: border-box;
 }
+
+body {
+    margin: 0;
+    overflow-x: hidden;
+    background: #f3f3f3;
+}
+
+html,
+body,
+#__next {
+    width: 100%;
+    min-height: 100%;
+    margin: 0;
+}
+
+body {
+    overflow-x: hidden;
+    background: #f3f3f3;
+}
+
+#__next {
+    display: flex;
+    flex-direction: column;
+}
+
+#main-content {
+    width: 100%;
+    flex: 1;
+    display: block;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html,
+body,
+#__next {
+  width: 100%;
+  min-width: 100%;
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  overflow-x: hidden;
+  background: #f3f3f3;
+}
+
+#__next {
+  width: 100%;
+  min-height: 100vh;
+}
+
+#main-content {
+  width: 100%;
+  max-width: none;
+  min-width: 0;
+  flex: 1;
+  display: block;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}

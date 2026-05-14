@@ -104,3 +104,53 @@
     object-fit: cover;
     display: block;
 }
+
+@media (max-width: 1024px) {
+  .page {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f4f4f4;
+    padding: 24px;
+  }
+
+  .connexionLeft {
+    width: 100%;
+    max-width: 420px;
+    min-height: auto;
+    padding: 32px 24px;
+    background: #f4f4f4;
+  }
+
+  .connexionRight {
+    display: none;
+  }
+
+  .brand {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+
+  .title {
+    text-align: center;
+  }
+
+  .form {
+    width: 100%;
+  }
+
+  .input,
+  .form input {
+    width: 100%;
+  }
+
+  .button {
+    width: 100%;
+  }
+
+  .bottomText {
+    text-align: center;
+    margin-top: 56px;
+  }
+}

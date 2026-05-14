@@ -84,7 +84,7 @@ export default function CreateTaskModal({ isOpen, onClose, onCreated, project })
 
             setTitle("");
             setDescription("");
-            setDueDate("");           
+            setDueDate("");
             setPriority("MEDIUM");
             setSelectedAssignees([]);
             setAssigneeQuery("");
@@ -109,27 +109,39 @@ export default function CreateTaskModal({ isOpen, onClose, onCreated, project })
                 <h2 className={styles.title}>Nouvelle tâche</h2>
 
                 <form onSubmit={handleSubmit} className={styles.form}>
+
                     <div className={styles.field}>
-                        <label>Titre*</label>
+                        <label htmlFor="title">Titre*</label>
                         <input
+                            id="title"
+                            name="titre"
                             value={title}
                             onChange={(e) => setTitle(e.target.value)}
                             placeholder="Ex: Maquette page d'accueil"
                         />
                     </div>
 
+
+
                     <div className={styles.field}>
-                        <label>Description</label>
+
+                        <label htmlFor="description">Description</label>
                         <input
+                            id="description"
+                            name="description"
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
                             placeholder="Détails de la tâche..."
                         />
                     </div>
 
+
                     <div className={styles.field}>
-                        <label>Échéance</label>
+
+                        <label htmlFor="date">Échéance</label>
                         <input
+                            id="date"
+                            name="date"
                             type="date"
                             value={dueDate}
                             onChange={(e) => setDueDate(e.target.value)}
