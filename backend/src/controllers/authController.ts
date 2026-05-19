@@ -95,7 +95,7 @@ export const register = async (req: Request, res: Response): Promise<void> => {
         if (validationErrors.length > 0) {
             sendValidationError(
                 res,
-                "Données d'inscription invalides",
+                "Données d'inscription invalides (8 charactères, 1 majuscule et 1 chiffre)",
                 validationErrors
             );
             return;
@@ -424,7 +424,7 @@ export const updatePassword = async (
         if (validationErrors.length > 0) {
             sendValidationError(
                 res,
-                "Données de mise à jour du mot de passe invalides",
+                "Données de mise à jour du mot de passe invalides  (8 charactères min, 1 majuscule et 1 chiffre)",
                 validationErrors
             );
             return;
