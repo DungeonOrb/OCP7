@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Sparkles, Trash2, Pencil } from "lucide-react";
 import styles from "../styles/AITaskModal.module.css";
 
+// generates 3 tasks with the rules from /api/ai.js (may sometimes take longer or break due to Gemini limitations)
 async function createTasksWithAI(text) {
   try {
     const response = await fetch("/api/ai", {

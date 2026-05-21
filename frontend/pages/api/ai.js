@@ -28,7 +28,7 @@ export default async function handler(req, res) {
     const ai = new GoogleGenAI({
       apiKey: process.env.GEMINI_API_KEY,
     });
-
+// List of rules the AI must follow, basically create 3 tasks according to user query (may sometimes break due to Gemini limitations)
     const systemInstruction = `
 Tu es un extracteur de tâches. Ton rôle est de lire le texte de l'utilisateur et d'extraire les tâches à créer.
 

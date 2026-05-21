@@ -402,26 +402,30 @@ export default function ProjectDetailsPage({ project, error }) {
                                 </div>
 
                                 <div className={styles.assigneesRow}>
-                                    <span className={styles.assigneesLabel}>Assigné à :</span>
+  <span className={styles.assigneesLabel}>Assigné à :</span>
 
-                                    <div className={styles.assigneesList}>
-                                        {(task.assignees || []).map((assignee) => (
-                                            <div
-                                                key={assignee.user.id}
-                                                className={styles.assigneeChip}
-                                            >
-                                                <span className={styles.avatar}>
-                                                    {getInitials(
-                                                        assignee.user.name || assignee.user.email
-                                                    )}
-                                                </span>
-                                                <span className={styles.memberName}>
-                                                    {assignee.user.name || assignee.user.email}
-                                                </span>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
+  <div className={styles.assigneesList}>
+    {(task.assignees || []).length === 0 ? (
+      <span className={styles.noAssignee}>Aucun assigné</span>
+    ) : (
+      task.assignees.map((assignee) => {
+        const user = assignee.user || assignee;
+
+        return (
+          <div key={user.id} className={styles.assigneeChip}>
+            <span className={styles.avatar}>
+              {getInitials(user.name || user.email)}
+            </span>
+
+            <span className={styles.memberName}>
+              {user.name || user.email}
+            </span>
+          </div>
+        );
+      })
+    )}
+  </div>
+</div>
 
                                 <div className={styles.commentsRow}>
                                     Commentaires ({task.comments?.length || 0})
@@ -459,44 +463,63 @@ export default function ProjectDetailsPage({ project, error }) {
         </main>
     );
 }
-
+// get project and task data
 export async function getServerSideProps(context) {
-    const cookies = parse(context.req.headers.cookie || "");
-    const token = cookies.auth_token;
-    const { id } = context.params;
+  const cookies = parse(context.req.headers.cookie || "");
+  const token = cookies.auth_token;
+  const { id } = context.params;
 
-    if (!token) {
-        return {
-            redirect: {
-                destination: "/connexion",
-                permanent: false,
-            },
-        };
-    }
+  if (!token) {
+    return {
+      redirect: {
+        destination: "/connexion",
+        permanent: false,
+      },
+    };
+  }
 
-    const res = await fetch(`http://localhost:8000/projects/${id}`, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    });
+  const headers = {
+    Authorization: `Bearer ${token}`,
+  };
 
-    if (!res.ok) {
-        const errorText = await res.text();
+  const [projectRes, tasksRes] = await Promise.all([
+    fetch(`http://localhost:8000/projects/${id}`, { headers }),
+    fetch(`http://localhost:8000/projects/${id}/tasks`, { headers }),
+  ]);
 
-        return {
-            props: {
-                project: null,
-                error: `Project backend error (${res.status}): ${errorText}`,
-            },
-        };
-    }
-
-    const data = await res.json();
+  if (!projectRes.ok || !tasksRes.ok) {
+    const [projectError, tasksError] = await Promise.all([
+      projectRes.text(),
+      tasksRes.text(),
+    ]);
 
     return {
-        props: {
-            project: data?.data?.project || null,
-            error: null,
-        },
+      props: {
+        project: null,
+        error:
+          `Project backend error (${projectRes.status}): ${projectError}\n` +
+          `Tasks backend error (${tasksRes.status}): ${tasksError}`,
+      },
     };
+  }
+
+  const [projectData, tasksData] = await Promise.all([
+    projectRes.json(),
+    tasksRes.json(),
+  ]);
+
+  const project = projectData?.data?.project || null;
+  const tasks = tasksData?.data?.tasks || [];
+
+  return {
+    props: {
+      project: project
+        ? {
+            ...project,
+            tasks,
+          }
+        : null,
+      error: null,
+    },
+  };
 }
